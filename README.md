@@ -5,10 +5,8 @@ Utilizaremos este repositorio para el curso de [Programación Orientada a Objeto
 ## Contacto:
 - [LinedIn](https://www.linkedin.com/in/angel-armando-estrada-engallo-6a9639169/ "LinedIn")
 - Email : aestradae1994@gmail.com
-- Perfil de Platzi: platzi.com/@angest1000/
+- Perfil de Platzi: [platzi.com/@angest1000/](https://platzi.com/@angest1000/ "platzi.com/@angest1000/")
 
 
 #NeverStopLearn
 #AunNoEresQuienVasALlegarASer
-
-
