@@ -4,6 +4,9 @@ class CasillaDeVotacion:
         self._pais = pais
         self._region = None
     
+    def __repr__(self):
+        return f'<CasillaDeVotacion,  identificador: ({self._identificador}),pais: ({self._pais})>'
+
     @property
     def region(self):
         return self._region
@@ -17,6 +20,7 @@ class CasillaDeVotacion:
 
 casilla = CasillaDeVotacion(123,['Ciudad de Mexico','Morelos'])
 print('casilla: ',type(casilla))
+print('Casilla: ',casilla)
 print('casilla.identificador: ',casilla._identificador)
 print('casilla.region: ',casilla.region)
 casilla.region = 'Ciudad de Mexico'
