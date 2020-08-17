@@ -32,17 +32,17 @@ class Tiempo: #Horas, minutos, segundos
     def __repr__(self):
         return f'<Tiempo {self.h:2}:{self.m:02}:{self.s:02}>'
 
-    def __add__(self,other):
-        h = self.h + other.h
-        m = self.m + other.m
-        s = self.s + other.s
+    def _operacion(self,other,method):
+        h = method(self.h,other.h)
+        m = method(self.m,other.m)
+        s = method(self.s,other.s)
         return Tiempo(h,m,s)
 
+    def __add__(self,other):
+        return self._operacion(other,operatod.add)
+
     def __sub__(self,other):
-        h = self.h - other.h
-        m = self.m - other.m
-        s = self.s - other.s
-        return Tiempo(h,m,s)
+        return self._operacion(other,operator.sub)
 
     @property
     def h(self):
