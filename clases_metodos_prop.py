@@ -3,13 +3,24 @@
 
 #Ejemplo:
 from functools import wraps
+import operator
 
+#Decorador para evitar que se agreguen valores 
+# no int a nuestra instancia tiempo
 def _int_requerido(f):
     @wraps(f)
     def wrapper(self, value):
         if not isinstance(value,int):
             raise TypeError('Se requiere un valor int')
         return f(self,value)
+    return wrapper
+
+def _time_required(f):
+    @wraps(f)
+    def wrapper(self,other):
+        if not isinstance(other,Tiempo):
+            raise TypeError('Solo se pueden operar instancias Tiempo')
+        return f(self,other)
     return wrapper
 
 def _balance(a,b):
@@ -38,9 +49,11 @@ class Tiempo: #Horas, minutos, segundos
         s = method(self.s,other.s)
         return Tiempo(h,m,s)
 
+    @_time_required
     def __add__(self,other):
-        return self._operacion(other,operatod.add)
+        return self._operacion(other,operator.add)
 
+    @_time_required
     def __sub__(self,other):
         return self._operacion(other,operator.sub)
 
@@ -87,8 +100,12 @@ class Tiempo: #Horas, minutos, segundos
 # Despues de definir __repr__: <Tiempo 14:23:10>
 
 #Agregando el metodo __add__ para sumar dos instancias tiempo
+# a = Tiempo(2,16,48)
+# b = Tiempo(3,51,22)
+# print(a+b)
+# print(b-a)
 
-a = Tiempo(2,16,48)
-b = Tiempo(3,51,22)
-print(a+b)
-print(b-a)
+#Probando el decorador para evitar que se sumen 
+# instancias Tiempo con otros objetos
+a=Tiempo(2,16,48)
+print(a+10)
