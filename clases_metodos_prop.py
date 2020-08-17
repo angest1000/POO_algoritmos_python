@@ -32,6 +32,18 @@ class Tiempo: #Horas, minutos, segundos
     def __repr__(self):
         return f'<Tiempo {self.h:2}:{self.m:02}:{self.s:02}>'
 
+    def __add__(self,other):
+        h = self.h + other.h
+        m = self.m + other.m
+        s = self.s + other.s
+        return Tiempo(h,m,s)
+
+    def __sub__(self,other):
+        h = self.h - other.h
+        m = self.m - other.m
+        s = self.s - other.s
+        return Tiempo(h,m,s)
+
     @property
     def h(self):
         return self._h
@@ -64,9 +76,9 @@ class Tiempo: #Horas, minutos, segundos
 # a = Tiempo("Hola mundo",23,10)
 # a.h = "Hola mundo"
 # a = Tiempo(14,23,10)
-a = Tiempo(2,80,95)
+# a = Tiempo(2,80,95)
 # print('a: ',a.h,a.m,a.s)
-print('a:',a)
+# print('a:',a)
 # b = Tiempo(m=30)
 # print('b: ',b.h,b.m,b.s)
 
@@ -74,4 +86,9 @@ print('a:',a)
 # Antes de definir __repr__: <__main__.Tiempo object at 0x7f6ab4ad8f90>
 # Despues de definir __repr__: <Tiempo 14:23:10>
 
+#Agregando el metodo __add__ para sumar dos instancias tiempo
 
+a = Tiempo(2,16,48)
+b = Tiempo(3,51,22)
+print(a+b)
+print(b-a)
