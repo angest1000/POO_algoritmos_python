@@ -2,7 +2,7 @@
 # https://recursospython.com/guias-y-manuales/clases-metodos-magicos-y-propiedades/
 
 #Ejemplo:
-from functools import wraps
+from functools import total_ordering, wraps
 import operator
 
 #Decorador para evitar que se agreguen valores 
@@ -34,6 +34,9 @@ def _balance(a,b):
             b += 60
     return a,b
 
+#El decorador total_ordering construira las demas operaciones
+# con base en las que ya escribimos
+@total_ordering
 class Tiempo: #Horas, minutos, segundos
     def __init__(self,h=0,m=0,s=0):
         self.h = h
@@ -57,6 +60,26 @@ class Tiempo: #Horas, minutos, segundos
     def __sub__(self,other):
         return self._operacion(other,operator.sub)
 
+    # Agregando la comparacion ==
+    @_time_required
+    def __eq__(self,other):
+        return (self.h == other.h 
+                and self.m == other.m 
+                and self.s == other.s)
+
+    #Ahora agregando la comparacion a < b:
+    @_time_required
+    def __lt__(self,other):
+        if self.h < other.h:
+            return True
+        if self.h > other.h:
+            return False
+        if self.m < other.m:
+            return True
+        if self.m > other.m:
+            return False
+        return self.s < other.s
+    
     @property
     def h(self):
         return self._h
@@ -107,5 +130,25 @@ class Tiempo: #Horas, minutos, segundos
 
 #Probando el decorador para evitar que se sumen 
 # instancias Tiempo con otros objetos
-a=Tiempo(2,16,48)
-print(a+10)
+# a=Tiempo(2,16,48)
+# print(a+10)
+
+#Probando el comparador ==
+# print(Tiempo(2,16,48) == Tiempo(2,16,48))
+# print(Tiempo(2,16,48) == Tiempo(8,16,21))
+
+#Probando el comparador a < b:
+# print(Tiempo(2,16,48) < Tiempo(2,16,48))
+# print(Tiempo(2,16,48) < Tiempo(8,16,21))
+# print(Tiempo(2,16,48) < Tiempo(2,16,21))
+
+#Probando todos los comparadores:
+
+a = Tiempo(2,16,48)
+b = Tiempo(8,16,21)
+print(a == b)
+print(a != b)
+print(a > b)
+print(a < b)
+print(a >= b)
+print(a <= b)
