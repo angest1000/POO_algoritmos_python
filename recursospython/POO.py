@@ -7,28 +7,44 @@
 class Estudiante:
 
     def __init__(self,name,asignaturas):
+        self.set_name(name)
+        self.set_asignaturas(asignaturas)
+
+    def set_name(self,name):
         if not isinstance(name,str):
             raise TypeError('El nombre debe ser de tipo str')
-        elif not isinstance(asignaturas,list):
-            raise TypeError('Las asignaturas deben ser una lista')
         self.name = name
+
+    def get_name(self):
+        return self.name
+
+    def set_asignaturas(self,asignaturas):
+        if not isinstance(asignaturas,list):
+            raise TypeError('Las asignaturas deben ser una lista')
         self.asignaturas = asignaturas
 
-    def print_info(self):
-        print("Nombre: {}".format(self.name))
-        print("Asignaturas: {}".format(self.asignaturas))
+    def get_asignaturas(self):
+        return self.asignaturas
+
+    # def print_info(self):
+    #     print("Nombre: {}".format(self.name))
+    #     print("Asignaturas: {}".format(self.asignaturas))
 
 student = Estudiante('Pablo',[5,14,3])
+print(student.name)
+print(student.asignaturas)
 
-student2 = Estudiante('Pedro',[1,9])
+# student.set_name(1)
+student.set_asignaturas('pedro')
+
+# student2 = Estudiante('Pedro',[1,9])
+
+# Recordemos que ambas llamadas a continuación son equivalentes:
+# Estudiante.print_info(student)
+# student.print_info()
 
 # student.print_info()
 # student2.print_info()
-
-
-# Recordemos que ambas llamadas a continuación son equivalentes:
-Estudiante.print_info(student)
-student.print_info()
 
 # los nombres de instancias se escriben
 #  en letras minúsculas y cada palabra
