@@ -25,28 +25,85 @@ def ordenamiento_burbuja(lista):
         # print(lista)
     return lista,iteraciones
 
+def ordenamiento_mezcla(lista):
+    global iteraciones
+    if len(lista) > 1:
+        medio = len(lista) // 2
+        izquierda = lista[:medio]
+        derecha = lista[medio:]
+        iteraciones += 1
+        # print(iteraciones)
+        # print(izquierda,'*'*5,derecha)
+        # Llamada recursiva en cada mitad
+        ordenamiento_mezcla(izquierda)
+        ordenamiento_mezcla(derecha)
+
+        #Iteradores para recorrer las 2 sublistas
+        i = 0
+        j = 0
+        #iterador para la lista principal
+        k = 0
+
+        while i < len(izquierda) and j < len(derecha):
+            if izquierda[i] < derecha[j]:
+                lista[k] = izquierda[i]
+                i += 1
+            else:
+                lista[k] = derecha[j]
+                j += 1
+            k += 1
+            iteraciones += 1
+            # print(iteraciones)
+            
+
+        while i < len(izquierda):
+            lista[k] = izquierda[i]
+            i += 1
+            k += 1
+            iteraciones += 1
+            # print(iteraciones)
+
+        while j < len(derecha):
+            lista[k] = derecha[j]
+            j += 1
+            k += 1
+            iteraciones += 1
+            # print(iteraciones)
+        # print(f'Izquierda {izquierda}, Derecha {derecha}')
+        # print(lista)
+        # print('-'*50)
+    return lista, iteraciones
+
 def main():
-    iteraciones_ins_sor=[]
-    iteraciones_bub_sor=[]
+    global iteraciones
+    iteraciones_ins_sor = []
+    iteraciones_bub_sor = []
+    iteraciones_ord_mez = []
     
     tam_de_lista = [i for i in range(2,1000,10)]
 
     for tamanio_lista in range(2,1000,10):
-        # lista = sorted([i for i in range(tamanio_lista)],reverse=True)
-        lista = [random.randint(0,tamanio_lista) for i in range(tamanio_lista)]
         
+        lista = sorted([i for i in range(tamanio_lista)],reverse=True)
+        # lista = [random.randint(0,tamanio_lista) for i in range(tamanio_lista)]
+        
+        iteraciones = 0
         lista_ord_ins = ordenamiento_insercion(lista)
         lista_ord_bur = ordenamiento_burbuja(lista)
+        lista_ord_mez = ordenamiento_mezcla(lista)
 
         iteraciones_ins_sor.append(lista_ord_ins[1])
         iteraciones_bub_sor.append(lista_ord_bur[1])
+        iteraciones_ord_mez.append(lista_ord_mez[1])
         
     iteraciones_ins_sor = (tam_de_lista,iteraciones_ins_sor)
     iteraciones_bub_sor = (tam_de_lista,iteraciones_bub_sor)
-    data = (iteraciones_ins_sor, iteraciones_bub_sor)
-    colors = ("red", "green")
-    groups = ("Ordenamiento por Insercion", "Ordenamiento de burbuja")
-    size = (30,10)
+    iteraciones_ord_mez = (tam_de_lista,iteraciones_ord_mez)
+    
+    data = (iteraciones_ins_sor, iteraciones_bub_sor,iteraciones_ord_mez)
+    colors = ("red", "green","blue")
+    groups = ("Ordenamiento por Insercion", "Ordenamiento de burbuja","Ordenamiento por Mezclas")
+    size = (50,30,10)
     
     # Create plot
     fig = plt.figure()

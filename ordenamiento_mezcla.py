@@ -1,6 +1,7 @@
 import random
 
-def ordenamiento_mezcla(lista,iteraciones):
+def ordenamiento_mezcla(lista):
+    global iteraciones
     if len(lista) > 1:
         medio = len(lista) // 2
         izquierda = lista[:medio]
@@ -9,8 +10,8 @@ def ordenamiento_mezcla(lista,iteraciones):
         print(iteraciones)
         print(izquierda,'*'*5,derecha)
         # Llamada recursiva en cada mitad
-        ordenamiento_mezcla(izquierda,iteraciones)
-        ordenamiento_mezcla(derecha,iteraciones)
+        ordenamiento_mezcla(izquierda)
+        ordenamiento_mezcla(derecha)
 
         #Iteradores para recorrer las 2 sublistas
         i = 0
@@ -28,6 +29,7 @@ def ordenamiento_mezcla(lista,iteraciones):
             k += 1
             iteraciones += 1
             print(iteraciones)
+            print(f'Lista {lista} ***Iz: {izquierda} *** Der: {derecha}')
             
 
         while i < len(izquierda):
@@ -36,6 +38,7 @@ def ordenamiento_mezcla(lista,iteraciones):
             k += 1
             iteraciones += 1
             print(iteraciones)
+            print(f'Lista {lista} ***Iz: {izquierda}')
 
         while j < len(derecha):
             lista[k] = derecha[j]
@@ -43,17 +46,19 @@ def ordenamiento_mezcla(lista,iteraciones):
             k += 1
             iteraciones += 1
             print(iteraciones)
+            print(f'Lista {lista} ***Der: {derecha}')
         print(f'Izquierda {izquierda}, Derecha {derecha}')
         print(lista)
         print('-'*50)
     return lista, iteraciones
 
 def main():
+    global iteraciones
     tamanio_lista = int(input('De que tamaño ser la lista: '))
     lista = [random.randint(0,tamanio_lista) for i in range(tamanio_lista)]
     print(f'Lista:\n {lista}')
     iteraciones = 0
-    lista_ordenada = ordenamiento_mezcla(lista,iteraciones)
+    lista_ordenada = ordenamiento_mezcla(lista)
 
     print(f'Lista Ordenada:\n {lista_ordenada[0]}')
     print(f'Iteraciones {lista_ordenada[1]}')
